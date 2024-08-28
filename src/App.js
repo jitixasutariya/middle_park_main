@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import Header from "./Components/Header/Header";
+import MegaMenu from "./Components/MegaMenu/MegaMenu";
 import Home from "./Pages/Home";
 import Absences from "./Pages/Absences";
 import Contact from "./Pages/Contact";
@@ -25,6 +26,7 @@ function App() {
       <BrowserRouter>
         <GlobalStyle /> {/* Global styles applied to the entire app */}
         <Header /> {/* Header component rendered on every page */}
+        <MegaMenu />
         <Routes>
           {/* Define routes and corresponding components */}
           <Route path="/" element={<Home />} /> {/* Home page route */}
