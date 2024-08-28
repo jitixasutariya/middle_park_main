@@ -1,15 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+import { BiSolidRightArrowAlt } from "react-icons/bi";
+import { IoIosArrowDown } from "react-icons/io";
+
+// Define custom animations using keyframes
+const slideInFromTop = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const MenuContainer = styled.div`
   display: flex;
   position: relative;
-  background: linear-gradient(
-    to right,
-    #0099cc,
-    #1ac6ff
-  ); // Gradient from #0099cc to #1ac6ff
+  background: linear-gradient(to right, #0099cc, #1ac6ff);
   padding-left: 220px;
 `;
 
@@ -31,16 +41,10 @@ const MenuButton = styled.button`
     background: #007bb5;
     color: #ffffff;
   }
-`;
 
-const Arrow = styled.div`
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  margin-left: 10px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  .menu-icon {
+    margin-left: 8px; /* Adjust this value as needed */
+  }
 `;
 
 const MegaMenuContainer = styled.div`
@@ -53,12 +57,31 @@ const MegaMenuContainer = styled.div`
   z-index: 1000;
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transform: ${(props) =>
+    props.isOpen ? "translateY(0) scale(1)" : "translateY(-20px) scale(0.95)"};
+  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+
+  /* Apply custom animation */
+  ${({ isOpen, animationType }) => {
+    switch (animationType) {
+      case "slideInFromTop":
+        return isOpen
+          ? css`
+              animation: ${slideInFromTop} 0.5s ease forwards;
+            `
+          : null;
+      default:
+        return null;
+    }
+  }};
+`;
+const MenuRow = styled.div`
+  display: flex;
 `;
 
 const MenuColumn = styled.div`
   width: 25%;
-  padding: 20px;
+  padding: 50px 40px;
   box-sizing: border-box;
 
   h3 {
@@ -69,13 +92,17 @@ const MenuColumn = styled.div`
 
 const MenuLink = styled(NavLink)`
   display: block;
-  padding: 10px 0;
-  color: white;
+  padding: 3px 0;
+  color: #0099cc;
   text-decoration: none;
+  font-size: 18px;
+
+  .menu-icon-arrow {
+    color: grey;
+  }
 
   &:hover {
-    background: #f0f0f0;
-    color: black;
+    color: #1ac6ff;
   }
 `;
 
@@ -104,38 +131,72 @@ const MegaMenu = () => {
     <MenuContainer ref={menuRef}>
       <MenuButton onClick={() => handleMenuClick("home")}>Home</MenuButton>
 
-      <MenuButton onClick={() => handleMenuClick("school")}>
+      <MenuButton
+        onClick={() => handleMenuClick("school")}
+        aria-expanded={activeMenu === "school"}
+        aria-controls="school-menu"
+      >
         Our School
-        <Arrow isOpen={activeMenu === "school"} />
+        <IoIosArrowDown className="menu-icon" />
       </MenuButton>
       {activeMenu === "school" && (
-        <MegaMenuContainer isOpen={activeMenu === "school"}>
-          <MenuColumn>
-            <h3>Section 1</h3>
-            <MenuLink to="/link1">Link 1</MenuLink>
-            <MenuLink to="/link2">Link 2</MenuLink>
-          </MenuColumn>
-          <MenuColumn>
-            <h3>Section 2</h3>
-            <MenuLink to="/link3">Link 3</MenuLink>
-            <MenuLink to="/link4">Link 4</MenuLink>
-          </MenuColumn>
-          {/* Add more columns if needed */}
+        <MegaMenuContainer
+          id="school-menu"
+          isOpen={activeMenu === "school"}
+          animationType="slideInFromTop"
+        >
+          <MenuRow>
+            <MenuColumn>
+              <h3>Quick links</h3>
+              <MenuLink to="/">
+                <BiSolidRightArrowAlt className="menu-icon-arrow" />
+                Home
+              </MenuLink>
+              <MenuLink to="/link2">
+                <BiSolidRightArrowAlt className="menu-icon-arrow" />
+                Curriculum
+              </MenuLink>
+              <MenuLink to="/link2">
+                <BiSolidRightArrowAlt className="menu-icon-arrow" />
+                Policies
+              </MenuLink>
+              <MenuLink to="/link2">
+                <BiSolidRightArrowAlt className="menu-icon-arrow" />
+                Newsletter
+              </MenuLink>
+              <MenuLink to="/link2">
+                <BiSolidRightArrowAlt className="menu-icon-arrow" />
+                Contact us
+              </MenuLink>
+            </MenuColumn>
+            <MenuColumn>
+              <h3>Section 2</h3>
+              <MenuLink to="/link3">Link 3</MenuLink>
+              <MenuLink to="/link4">Link 4</MenuLink>
+            </MenuColumn>
+          </MenuRow>
         </MegaMenuContainer>
       )}
 
-      <MenuButton onClick={() => handleMenuClick("partners")}>
+      <MenuButton
+        onClick={() => handleMenuClick("partners")}
+        aria-expanded={activeMenu === "partners"}
+        aria-controls="partners-menu"
+      >
         For Partners
-        <Arrow isOpen={activeMenu === "partners"} />
+        <IoIosArrowDown className="menu-icon" />
       </MenuButton>
       {activeMenu === "partners" && (
-        <MegaMenuContainer isOpen={activeMenu === "partners"}>
+        <MegaMenuContainer
+          id="partners-menu"
+          isOpen={activeMenu === "partners"}
+          animationType="slideInFromTop"
+        >
           <MenuColumn>
             <h3>Partners Section 1</h3>
             <MenuLink to="/partner-link1">Partner Link 1</MenuLink>
             <MenuLink to="/partner-link2">Partner Link 2</MenuLink>
           </MenuColumn>
-          {/* Add more columns if needed */}
         </MegaMenuContainer>
       )}
 
@@ -144,18 +205,25 @@ const MegaMenu = () => {
       <MenuButton onClick={() => handleMenuClick("calendar")}>
         Calendar
       </MenuButton>
-      <MenuButton onClick={() => handleMenuClick("contact")}>
+      <MenuButton
+        onClick={() => handleMenuClick("contact")}
+        aria-expanded={activeMenu === "contact"}
+        aria-controls="contact-menu"
+      >
         Contact Us
-        <Arrow isOpen={activeMenu === "contact"} />
+        <IoIosArrowDown className="menu-icon" />
       </MenuButton>
       {activeMenu === "contact" && (
-        <MegaMenuContainer isOpen={activeMenu === "contact"}>
+        <MegaMenuContainer
+          id="contact-menu"
+          isOpen={activeMenu === "contact"}
+          animationType="slideInFromTop"
+        >
           <MenuColumn>
             <h3>Contact Section 1</h3>
             <MenuLink to="/contact-link1">Contact Link 1</MenuLink>
             <MenuLink to="/contact-link2">Contact Link 2</MenuLink>
           </MenuColumn>
-          {/* Add more columns if needed */}
         </MegaMenuContainer>
       )}
     </MenuContainer>
