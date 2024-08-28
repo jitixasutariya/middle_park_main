@@ -34,14 +34,13 @@ const MenuButton = styled.button`
 `;
 
 const Arrow = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid white;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
   margin-left: 10px;
-  transition: transform 0.3s ease;
-  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 `;
 
 const MegaMenuContainer = styled.div`
