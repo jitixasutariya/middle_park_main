@@ -21,6 +21,12 @@ const MenuContainer = styled.div`
   position: relative;
   background: linear-gradient(to right, #0099cc, #1ac6ff);
   padding-left: 220px;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+
+  @media (max-width: 768px) {
+    padding-left: 0; /* Remove padding on smaller screens */
+    flex-direction: column; /* Stack menu items vertically */
+  }
 `;
 
 const MenuButton = styled.button`
@@ -43,7 +49,13 @@ const MenuButton = styled.button`
   }
 
   .menu-icon {
-    margin-left: 8px; /* Adjust this value as needed */
+    margin-left: 8px;
+    font-size: 20px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px; /* Smaller font size for mobile */
+    padding: 10px 20px; /* Smaller padding for mobile */
   }
 `;
 
@@ -61,7 +73,6 @@ const MegaMenuContainer = styled.div`
     props.isOpen ? "translateY(0) scale(1)" : "translateY(-20px) scale(0.95)"};
   transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
 
-  /* Apply custom animation */
   ${({ isOpen, animationType }) => {
     switch (animationType) {
       case "slideInFromTop":
@@ -74,9 +85,17 @@ const MegaMenuContainer = styled.div`
         return null;
     }
   }};
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width for mobile */
+    left: 0; /* Align with the left edge */
+    box-shadow: none; /* Remove shadow for mobile */
+  }
 `;
+
 const MenuRow = styled.div`
   display: flex;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 `;
 
 const MenuColumn = styled.div`
@@ -87,6 +106,11 @@ const MenuColumn = styled.div`
   h3 {
     margin-top: 0;
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%; /* Full width for mobile */
+    padding: 20px; /* Smaller padding for mobile */
   }
 `;
 
@@ -103,6 +127,10 @@ const MenuLink = styled(NavLink)`
 
   &:hover {
     color: #1ac6ff;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px; /* Smaller font size for mobile */
   }
 `;
 
@@ -152,19 +180,19 @@ const MegaMenu = () => {
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Home
               </MenuLink>
-              <MenuLink to="/link2">
+              <MenuLink to="/curriculum">
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Curriculum
               </MenuLink>
-              <MenuLink to="/link2">
+              <MenuLink to="/polices">
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Policies
               </MenuLink>
-              <MenuLink to="/link2">
+              <MenuLink to="/newsletter">
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Newsletter
               </MenuLink>
-              <MenuLink to="/link2">
+              <MenuLink to="/contact">
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Contact us
               </MenuLink>
