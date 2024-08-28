@@ -16,20 +16,32 @@ const MenuContainer = styled.div`
 const MenuButton = styled.button`
   background: none;
   color: white;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
   display: flex;
-  padding: 15px 30px;
   align-items: center;
+  padding: 15px 30px;
   transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
 
   &:hover {
     background: #007bb5;
     color: #ffffff;
   }
+`;
+
+const Arrow = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid white;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0deg)")};
 `;
 
 const MegaMenuContainer = styled.div`
@@ -64,6 +76,7 @@ const MenuLink = styled(NavLink)`
 
   &:hover {
     background: #f0f0f0;
+    color: black;
   }
 `;
 
@@ -72,7 +85,7 @@ const MegaMenu = () => {
   const menuRef = useRef(null);
 
   const handleMenuClick = (menu) => {
-    setActiveMenu(activeMenu === menu ? null : menu);
+    setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
   useEffect(() => {
@@ -94,6 +107,7 @@ const MegaMenu = () => {
 
       <MenuButton onClick={() => handleMenuClick("school")}>
         Our School
+        <Arrow isOpen={activeMenu === "school"} />
       </MenuButton>
       {activeMenu === "school" && (
         <MegaMenuContainer isOpen={activeMenu === "school"}>
@@ -113,6 +127,7 @@ const MegaMenu = () => {
 
       <MenuButton onClick={() => handleMenuClick("partners")}>
         For Partners
+        <Arrow isOpen={activeMenu === "partners"} />
       </MenuButton>
       {activeMenu === "partners" && (
         <MegaMenuContainer isOpen={activeMenu === "partners"}>
@@ -125,7 +140,25 @@ const MegaMenu = () => {
         </MegaMenuContainer>
       )}
 
-      <MenuButton>Enrol</MenuButton>
+      <MenuButton onClick={() => handleMenuClick("enrol")}>Enrol</MenuButton>
+      <MenuButton onClick={() => handleMenuClick("music")}>Music</MenuButton>
+      <MenuButton onClick={() => handleMenuClick("calendar")}>
+        Calendar
+      </MenuButton>
+      <MenuButton onClick={() => handleMenuClick("contact")}>
+        Contact Us
+        <Arrow isOpen={activeMenu === "contact"} />
+      </MenuButton>
+      {activeMenu === "contact" && (
+        <MegaMenuContainer isOpen={activeMenu === "contact"}>
+          <MenuColumn>
+            <h3>Contact Section 1</h3>
+            <MenuLink to="/contact-link1">Contact Link 1</MenuLink>
+            <MenuLink to="/contact-link2">Contact Link 2</MenuLink>
+          </MenuColumn>
+          {/* Add more columns if needed */}
+        </MegaMenuContainer>
+      )}
     </MenuContainer>
   );
 };
