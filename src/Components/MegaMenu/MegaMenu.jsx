@@ -5,6 +5,8 @@ import { BiSolidRightArrowAlt } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Add this import
 import { faBars } from "@fortawesome/free-solid-svg-icons"; // Import the icon you need
+import Tabs from "../Tab/Tabs";
+import { TabData } from "../Tab/TabData";
 
 const slideInFromTop = keyframes`
   0% {
@@ -261,13 +263,7 @@ const MegaMenu = () => {
               </MenuLink>
             </MenuColumn>
             <MenuColumn>
-              <h3>Section 2</h3>
-              <MenuLink to="/link3" onClick={() => setIsMenuOpen(false)}>
-                Link 3
-              </MenuLink>
-              <MenuLink to="/link4" onClick={() => setIsMenuOpen(false)}>
-                Link 4
-              </MenuLink>
+              <Tabs tabs={TabData} />
             </MenuColumn>
           </MenuRow>
         </MegaMenuContainer>
