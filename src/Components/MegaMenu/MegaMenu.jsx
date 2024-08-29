@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import { BiSolidRightArrowAlt } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaBars } from "react-icons/fa"; // Import Hamburger Icon
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Add this import
+import { faBars } from "@fortawesome/free-solid-svg-icons"; // Import the icon you need
 
 const slideInFromTop = keyframes`
   0% {
@@ -42,7 +43,8 @@ const HamburgerMenu = styled.div`
 
   .humburgerIcon {
     float: right;
-    font-size: 50px;
+    font-size: 60px;
+    font-weight: 900;
     color: white;
   }
 
@@ -210,7 +212,12 @@ const MegaMenu = () => {
       <HamburgerMenu onClick={toggleMenu}>
         <HamburgerText>
           Menu
-          <FaBars className="humburgerIcon" />
+          <FontAwesomeIcon
+            icon={faBars}
+            rotation={90}
+            className="humburgerIcon"
+          />
+          {/* <FaBars  rotation={90} /> */}
         </HamburgerText>
       </HamburgerMenu>
       <MenuItems isOpen={isMenuOpen}>
