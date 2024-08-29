@@ -2,21 +2,22 @@ export const TabData = [
   {
     id: "tab1",
     label: "Welcome",
-    content: "This is the content for Tab 1.",
+    content:
+      "Welcome to Middle Park Primary School. Our school offers students a caring and nurturing learning environment. Our dedicated and experienced teachers provide a positive and enriching program, appreciating the individual needs and interests of each child.",
   },
   {
     id: "tab2",
     label: "School Profile",
-    content: "This is the content for Tab 2.",
+    content: "School Profile",
   },
   {
     id: "tab3",
     label: "Strategic Plan",
-    content: "This is the content for Tab 3.",
+    content: "Strategic Plan ",
   },
   {
     id: "tab4",
     label: "Annual Report",
-    content: "This is the content for Tab 4.",
+    content: "Annual Report",
   },
 ];
