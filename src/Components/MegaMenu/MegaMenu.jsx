@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import { BiSolidRightArrowAlt } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Add this import
-import { faBars } from "@fortawesome/free-solid-svg-icons"; // Import the icon you need
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Tabs from "../Tab/Tabs";
 import { TabData } from "../Tab/TabData";
 
@@ -43,7 +43,7 @@ const HamburgerMenu = styled.div`
   margin-left: auto;
   width: 100%;
 
-  .humburgerIcon {
+  .hamburgerIcon {
     float: right;
     font-size: 60px;
     font-weight: 900;
@@ -86,12 +86,13 @@ const MenuButton = styled.button`
   display: flex;
   align-items: center;
   padding: 15px 30px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
   position: relative;
 
   &:hover {
     background: #007bb5;
     color: #ffffff;
+    transform: scale(1.05);
   }
 
   .menu-icon {
@@ -101,7 +102,7 @@ const MenuButton = styled.button`
 
   @media (max-width: 768px) {
     font-size: 24px;
-    padding: 10px 25px;
+    padding: 20px 40px;
   }
 `;
 
@@ -163,7 +164,7 @@ const MenuColumn = styled.div`
 
 const MenuLink = styled(NavLink)`
   display: block;
-  padding: 3px 0;
+  padding: 10px 0;
   color: #0099cc;
   text-decoration: none;
   font-size: 18px;
@@ -177,8 +178,8 @@ const MenuLink = styled(NavLink)`
   }
 
   @media (max-width: 768px) {
-    font-size: 28px;
-    padding: 10px 25px;
+    font-size: 24px;
+    padding: 15px 0;
   }
 `;
 
@@ -217,9 +218,8 @@ const MegaMenu = () => {
           <FontAwesomeIcon
             icon={faBars}
             rotation={90}
-            className="humburgerIcon"
+            className="hamburgerIcon"
           />
-          {/* <FaBars  rotation={90} /> */}
         </HamburgerText>
       </HamburgerMenu>
       <MenuItems isOpen={isMenuOpen}>
@@ -229,6 +229,7 @@ const MegaMenu = () => {
           onClick={() => handleMenuClick("school")}
           aria-expanded={activeMenu === "school"}
           aria-controls="school-menu"
+          aria-haspopup="true"
         >
           Our School
           <IoIosArrowDown className="menu-icon" />
@@ -272,6 +273,7 @@ const MegaMenu = () => {
           onClick={() => handleMenuClick("partners")}
           aria-expanded={activeMenu === "partners"}
           aria-controls="partners-menu"
+          aria-haspopup="true"
         >
           For Partners
           <IoIosArrowDown className="menu-icon" />
@@ -297,27 +299,23 @@ const MegaMenu = () => {
         <MenuButton onClick={() => handleMenuClick("calendar")}>
           Calendar
         </MenuButton>
+
         <MenuButton
           onClick={() => handleMenuClick("contact")}
           aria-expanded={activeMenu === "contact"}
           aria-controls="contact-menu"
+          aria-haspopup="true"
         >
           Contact Us
           <IoIosArrowDown className="menu-icon" />
         </MenuButton>
         <MegaMenuContainer
-          id="contact-menu"
+          id="partners-menu"
           isOpen={activeMenu === "contact"}
           animationType="slideInFromTop"
         >
           <MenuColumn>
-            <h3>Contact Section 1</h3>
-            <MenuLink to="/contact-link1" onClick={() => setIsMenuOpen(false)}>
-              Contact Link 1
-            </MenuLink>
-            <MenuLink to="/contact-link2" onClick={() => setIsMenuOpen(false)}>
-              Contact Link 2
-            </MenuLink>
+            <h3>Address</h3>
           </MenuColumn>
         </MegaMenuContainer>
       </MenuItems>
