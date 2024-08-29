@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import { BiSolidRightArrowAlt } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaBars } from "react-icons/fa"; // Import Hamburger Icon
 
-// Define custom animations using keyframes
 const slideInFromTop = keyframes`
   0% {
     opacity: 0;
@@ -21,11 +21,53 @@ const MenuContainer = styled.div`
   position: relative;
   background: linear-gradient(to right, #0099cc, #1ac6ff);
   padding-left: 220px;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    padding-left: 0; /* Remove padding on smaller screens */
-    flex-direction: column; /* Stack menu items vertically */
+    padding-left: 0;
+    flex-direction: column;
+  }
+`;
+
+const HamburgerMenu = styled.div`
+  display: none;
+  background: none;
+  color: white;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  padding: 15px;
+  margin-left: auto;
+  width: 100%;
+
+  .humburgerIcon {
+    float: right;
+    font-size: 50px;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const HamburgerText = styled.span`
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  color: #d9ff36;
+  font-size: 36px;
+  font-weight: 600;
+`;
+
+const MenuItems = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    display: ${(props) => (props.isOpen ? "flex" : "none")};
   }
 `;
 
@@ -54,8 +96,8 @@ const MenuButton = styled.button`
   }
 
   @media (max-width: 768px) {
-    font-size: 16px; /* Smaller font size for mobile */
-    padding: 10px 20px; /* Smaller padding for mobile */
+    font-size: 24px;
+    padding: 10px 25px;
   }
 `;
 
@@ -87,15 +129,16 @@ const MegaMenuContainer = styled.div`
   }};
 
   @media (max-width: 768px) {
-    width: 100%; /* Full width for mobile */
-    left: 0; /* Align with the left edge */
-    box-shadow: none; /* Remove shadow for mobile */
+    width: 100%;
+    left: 0;
+    box-shadow: none;
+    transform: translateY(0);
   }
 `;
 
 const MenuRow = styled.div`
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  flex-wrap: wrap;
 `;
 
 const MenuColumn = styled.div`
@@ -109,8 +152,8 @@ const MenuColumn = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%; /* Full width for mobile */
-    padding: 20px; /* Smaller padding for mobile */
+    width: 100%;
+    padding: 20px;
   }
 `;
 
@@ -130,22 +173,29 @@ const MenuLink = styled(NavLink)`
   }
 
   @media (max-width: 768px) {
-    font-size: 16px; /* Smaller font size for mobile */
+    font-size: 28px;
+    padding: 10px 25px;
   }
 `;
 
 const MegaMenu = () => {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   const handleMenuClick = (menu) => {
     setActiveMenu((prev) => (prev === menu ? null : menu));
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setActiveMenu(null);
+        setIsMenuOpen(false);
       }
     };
 
@@ -157,17 +207,23 @@ const MegaMenu = () => {
 
   return (
     <MenuContainer ref={menuRef}>
-      <MenuButton onClick={() => handleMenuClick("home")}>Home</MenuButton>
+      <HamburgerMenu onClick={toggleMenu}>
+        <HamburgerText>
+          Menu
+          <FaBars className="humburgerIcon" />
+        </HamburgerText>
+      </HamburgerMenu>
+      <MenuItems isOpen={isMenuOpen}>
+        <MenuButton onClick={() => handleMenuClick("home")}>Home</MenuButton>
 
-      <MenuButton
-        onClick={() => handleMenuClick("school")}
-        aria-expanded={activeMenu === "school"}
-        aria-controls="school-menu"
-      >
-        Our School
-        <IoIosArrowDown className="menu-icon" />
-      </MenuButton>
-      {activeMenu === "school" && (
+        <MenuButton
+          onClick={() => handleMenuClick("school")}
+          aria-expanded={activeMenu === "school"}
+          aria-controls="school-menu"
+        >
+          Our School
+          <IoIosArrowDown className="menu-icon" />
+        </MenuButton>
         <MegaMenuContainer
           id="school-menu"
           isOpen={activeMenu === "school"}
@@ -176,45 +232,47 @@ const MegaMenu = () => {
           <MenuRow>
             <MenuColumn>
               <h3>Quick links</h3>
-              <MenuLink to="/">
+              <MenuLink to="/" onClick={() => setIsMenuOpen(false)}>
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Home
               </MenuLink>
-              <MenuLink to="/curriculum">
+              <MenuLink to="/curriculum" onClick={() => setIsMenuOpen(false)}>
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Curriculum
               </MenuLink>
-              <MenuLink to="/polices">
+              <MenuLink to="/policies" onClick={() => setIsMenuOpen(false)}>
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Policies
               </MenuLink>
-              <MenuLink to="/newsletter">
+              <MenuLink to="/newsletter" onClick={() => setIsMenuOpen(false)}>
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Newsletter
               </MenuLink>
-              <MenuLink to="/contact">
+              <MenuLink to="/contact" onClick={() => setIsMenuOpen(false)}>
                 <BiSolidRightArrowAlt className="menu-icon-arrow" />
                 Contact us
               </MenuLink>
             </MenuColumn>
             <MenuColumn>
               <h3>Section 2</h3>
-              <MenuLink to="/link3">Link 3</MenuLink>
-              <MenuLink to="/link4">Link 4</MenuLink>
+              <MenuLink to="/link3" onClick={() => setIsMenuOpen(false)}>
+                Link 3
+              </MenuLink>
+              <MenuLink to="/link4" onClick={() => setIsMenuOpen(false)}>
+                Link 4
+              </MenuLink>
             </MenuColumn>
           </MenuRow>
         </MegaMenuContainer>
-      )}
 
-      <MenuButton
-        onClick={() => handleMenuClick("partners")}
-        aria-expanded={activeMenu === "partners"}
-        aria-controls="partners-menu"
-      >
-        For Partners
-        <IoIosArrowDown className="menu-icon" />
-      </MenuButton>
-      {activeMenu === "partners" && (
+        <MenuButton
+          onClick={() => handleMenuClick("partners")}
+          aria-expanded={activeMenu === "partners"}
+          aria-controls="partners-menu"
+        >
+          For Partners
+          <IoIosArrowDown className="menu-icon" />
+        </MenuButton>
         <MegaMenuContainer
           id="partners-menu"
           isOpen={activeMenu === "partners"}
@@ -222,26 +280,28 @@ const MegaMenu = () => {
         >
           <MenuColumn>
             <h3>Partners Section 1</h3>
-            <MenuLink to="/partner-link1">Partner Link 1</MenuLink>
-            <MenuLink to="/partner-link2">Partner Link 2</MenuLink>
+            <MenuLink to="/partner-link1" onClick={() => setIsMenuOpen(false)}>
+              Partner Link 1
+            </MenuLink>
+            <MenuLink to="/partner-link2" onClick={() => setIsMenuOpen(false)}>
+              Partner Link 2
+            </MenuLink>
           </MenuColumn>
         </MegaMenuContainer>
-      )}
 
-      <MenuButton onClick={() => handleMenuClick("enrol")}>Enrol</MenuButton>
-      <MenuButton onClick={() => handleMenuClick("music")}>Music</MenuButton>
-      <MenuButton onClick={() => handleMenuClick("calendar")}>
-        Calendar
-      </MenuButton>
-      <MenuButton
-        onClick={() => handleMenuClick("contact")}
-        aria-expanded={activeMenu === "contact"}
-        aria-controls="contact-menu"
-      >
-        Contact Us
-        <IoIosArrowDown className="menu-icon" />
-      </MenuButton>
-      {activeMenu === "contact" && (
+        <MenuButton onClick={() => handleMenuClick("enrol")}>Enrol</MenuButton>
+        <MenuButton onClick={() => handleMenuClick("music")}>Music</MenuButton>
+        <MenuButton onClick={() => handleMenuClick("calendar")}>
+          Calendar
+        </MenuButton>
+        <MenuButton
+          onClick={() => handleMenuClick("contact")}
+          aria-expanded={activeMenu === "contact"}
+          aria-controls="contact-menu"
+        >
+          Contact Us
+          <IoIosArrowDown className="menu-icon" />
+        </MenuButton>
         <MegaMenuContainer
           id="contact-menu"
           isOpen={activeMenu === "contact"}
@@ -249,11 +309,15 @@ const MegaMenu = () => {
         >
           <MenuColumn>
             <h3>Contact Section 1</h3>
-            <MenuLink to="/contact-link1">Contact Link 1</MenuLink>
-            <MenuLink to="/contact-link2">Contact Link 2</MenuLink>
+            <MenuLink to="/contact-link1" onClick={() => setIsMenuOpen(false)}>
+              Contact Link 1
+            </MenuLink>
+            <MenuLink to="/contact-link2" onClick={() => setIsMenuOpen(false)}>
+              Contact Link 2
+            </MenuLink>
           </MenuColumn>
         </MegaMenuContainer>
-      )}
+      </MenuItems>
     </MenuContainer>
   );
 };

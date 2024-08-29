@@ -84,110 +84,113 @@
 /* Media Queries for Tablets and Smaller Devices */
 @media (max-width: 1024px) {
   .header {
-    padding: 0 5%; /* Reduce padding on tablets */
+    padding: 0 5%; /* Adjust padding for tablets */
   }
 
   .header-container {
-    flex-direction: column; /* Stack items vertically on tablets */
+    flex-direction: column; /* Stack header items vertically */
     align-items: center; /* Center items horizontally */
   }
 
   .logo {
-    margin-bottom: 1rem; /* Space below the logo */
+    margin-bottom: 1rem; /* Space below logo */
   }
 
   .menu {
-    font-size: 16px; /* Adjust font size for tablets */
+    font-size: 24px; /* Adjust font size for tablets */
     padding: 10px 20px; /* Adjust padding for tablets */
+    text-align: center; /* Center align text */
+    flex-wrap: wrap; /* Allow menu items to wrap */
   }
 
   .contact-info {
-    text-align: center; /* Center text for better appearance on tablets */
+    text-align: center; /* Center align contact info */
   }
 
   .phone-number {
-    font-size: 20px; /* Adjust font size for tablets */
+    font-size: 24px; /* Adjust font size */
   }
 
   .school-office {
-    font-size: 16px; /* Adjust font size for tablets */
+    font-size: 24px; /* Adjust font size */
   }
 }
 
 /* Media Queries for Mobile Devices */
 @media (max-width: 768px) {
   .header {
-    padding: 0 2%; /* Further reduce padding for mobile devices */
+    padding: 0 2%; /* Further reduce padding */
   }
 
   .header-container {
-    flex-direction: column; /* Stack items vertically on mobile devices */
+    flex-direction: column; /* Stack header items vertically */
     align-items: center; /* Center items horizontally */
   }
 
   .school-logo {
-    max-width: 200px; /* Further reduce logo size for mobile devices */
+    max-width: 350px; /* Reduce logo size */
     height: auto; /* Maintain aspect ratio */
   }
 
   .menu {
-    flex-direction: column; /* Stack menu items vertically on mobile devices */
-    font-size: 16px; /* Further reduce font size for mobile devices */
-    padding: 10px 0; /* Adjust padding for mobile devices */
+    flex-direction: row; /* Stack menu items vertically */
+    font-size: 24px; /* Adjust font size */
+    padding: 10px 0; /* Adjust padding */
+    text-align: center; /* Center align text */
   }
 
   .contact-info {
-    text-align: center; /* Center text for mobile devices */
+    text-align: center; /* Center align text */
   }
 
   .phone-number {
-    font-size: 18px; /* Further reduce font size for mobile devices */
+    font-size: 24px; /* Adjust font size */
   }
 
   .school-office {
-    font-size: 14px; /* Further reduce font size for mobile devices */
+    font-size: 24px; /* Adjust font size */
   }
 
   .contact-icon {
-    padding: 6px; /* Adjust padding for mobile devices */
+    padding: 6px; /* Adjust padding */
   }
 
   .phone-icon {
-    font-size: 1.5rem; /* Adjust icon size for mobile devices */
+    font-size: 1.8rem; /* Adjust icon size */
   }
 }
 
-/* Media Queries for Extra Small Screens (e.g., phones in portrait mode) */
+/* Media Queries for Extra Small Screens */
 @media (max-width: 480px) {
   .header {
-    padding: 0 1%; /* Further reduce padding for extra small screens */
+    padding: 0 1%; /* Reduce padding for very small screens */
   }
 
   .menu {
-    font-size: 16px; /* Further reduce font size for very small screens */
+    font-size: 24px; /* Adjust font size */
   }
 
   .school-logo {
-    max-width: 150px; /* Further reduce logo size for very small screens */
+    max-width: 350px; /* Further reduce logo size */
   }
 
   .contact-info {
-    font-size: 16px; /* Adjust font size for contact info on very small screens */
+    font-size: 24px; /* Adjust font size */
   }
 
   .phone-number {
-    font-size: 16px; /* Further reduce font size for very small screens */
+    font-size: 24px; /* Adjust font size */
   }
 
   .school-office {
-    font-size: 14px; /* Further reduce font size for very small screens */
+    font-size: 24px; /* Adjust font size */
   }
 
   .contact-icon {
-    padding: 4px; /* Adjust padding for very small screens */
+    padding: 4px; /* Adjust padding */
   }
 
   .phone-icon {
-    font-size: 1.2rem; /* Further reduce icon size for very small screens */
+    font-size: 1.7rem; /* Adjust icon size */
   }
 }
